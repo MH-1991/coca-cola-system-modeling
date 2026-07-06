@@ -1,0 +1,50 @@
+direction: right
+
+Produto: {
+  ID_Produto: varchar
+  Nome: varchar
+  Descrição: text
+  Tipo: varchar
+  Tamanho_Volume: varchar
+  Preço_Unitário: decimal
+  Status: varchar
+}
+
+Cliente: {
+  ID_Cliente: varchar
+  Nome_Empresa: varchar
+  CNPJ_CPF: varchar
+  Endereço: text
+  Telefone: varchar
+  Email: varchar
+  Tipo_Cliente: varchar
+}
+
+Pedido: {
+  ID_Pedido: varchar
+  Data_Pedido: date
+  Status_Pedido: varchar
+  Valor_Total: decimal
+  Data_Entrega_Estimada: date
+}
+
+Detalhe_Pedido: {
+  ID_Detalhe_Pedido: varchar
+  Quantidade: int
+  Preço_Unitário_no_Pedido: decimal
+  Subtotal: decimal
+}
+
+Estoque: {
+  ID_Estoque: varchar
+  Quantidade_Disponível: int
+  Localização: varchar
+  Data_Última_Atualização: date
+}
+
+// Relacionamentos
+
+Cliente.ID_Cliente <-> Pedido.ID_Cliente: "faz" {label: "1:N"}
+Pedido.ID_Pedido <-> Detalhe_Pedido.ID_Pedido: "contém" {label: "1:N"}
+Produto.ID_Produto <-> Detalhe_Pedido.ID_Produto: "está em" {label: "1:N"}
+Produto.ID_Produto <-> Estoque.ID_Produto: "tem" {label: "1:1"}

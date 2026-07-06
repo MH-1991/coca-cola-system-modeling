@@ -1,0 +1,38 @@
+sequenceDiagram
+    actor Cliente
+    participant Sistema as "Sistema de Pedidos"
+    participant Produto as "Catálogo de Produtos"
+    participant Pedido as "Gerenciador de Pedidos"
+    participant Detalhe_Pedido as "Detalhes do Pedido"
+    participant Estoque as "Gerenciador de Estoque"
+
+    Cliente->>Sistema: 1. Acessa o sistema de pedidos
+    activate Sistema
+    Sistema->>Produto: 2. Solicita lista de produtos
+    activate Produto
+    Produto-->>Sistema: 3. Retorna lista de produtos
+    deactivate Produto
+
+    Cliente->>Sistema: 4. Seleciona produtos e quantidades
+    Sistema->>Pedido: 5. Cria novo pedido (ID_Pedido, ID_Cliente, Data_Pedido)
+    activate Pedido
+    Pedido-->>Sistema: 6. Pedido criado com sucesso
+
+    loop para cada produto selecionado
+        Sistema->>Detalhe_Pedido: 7. Adiciona item ao pedido (ID_Pedido, ID_Produto, Quantidade, Preço_Unitário)
+        activate Detalhe_Pedido
+        Detalhe_Pedido-->>Sistema: 8. Item adicionado
+        deactivate Detalhe_Pedido
+
+        Sistema->>Estoque: 9. Solicita remoção de quantidade (ID_Produto, Quantidade)
+        activate Estoque
+        Estoque-->>Sistema: 10. Quantidade removida do estoque
+        deactivate Estoque
+    end
+
+    Pedido->>Pedido: 11. Calcula Valor_Total do pedido
+    Pedido-->>Sistema: 12. Retorna Valor_Total
+    deactivate Pedido
+
+    Sistema->>Cliente: 13. Confirmação do pedido e Valor_Total
+    deactivate Sistema

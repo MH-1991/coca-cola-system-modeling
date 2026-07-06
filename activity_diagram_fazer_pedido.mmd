@@ -1,0 +1,19 @@
+activityDiagram
+    start
+    :Cliente acessa o sistema de pedidos;
+    :Sistema exibe catálogo de produtos;
+
+    if (Cliente seleciona produtos e quantidades?)
+        :Sistema cria novo pedido;
+        fork
+            :Adicionar itens ao pedido;
+            :Calcular subtotal de cada item;
+        fork again
+            :Atualizar estoque (remover quantidade);
+        end fork
+        :Calcular valor total do pedido;
+        :Sistema confirma pedido ao cliente;
+        stop
+    else (Não)
+        stop
+    endif

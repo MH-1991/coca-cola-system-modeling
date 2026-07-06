@@ -1,0 +1,42 @@
+direction: right
+
+start: start
+
+cliente_acessa_sistema: Cliente acessa o sistema de pedidos
+sistema_exibe_catalogo: Sistema exibe catálogo de produtos
+
+condicao_selecao: {Cliente seleciona produtos e quantidades?}
+
+sistema_cria_pedido: Sistema cria novo pedido
+
+fork_node: fork
+    adicionar_itens: Adicionar itens ao pedido
+    calcular_subtotal: Calcular subtotal de cada item
+fork_node_again: fork again
+    atualizar_estoque: Atualizar estoque (remover quantidade)
+end_fork: end fork
+
+calcular_valor_total: Calcular valor total do pedido
+sistema_confirma_pedido: Sistema confirma pedido ao cliente
+
+stop_node: stop
+
+start -> cliente_acessa_sistema
+cliente_acessa_sistema -> sistema_exibe_catalogo
+sistema_exibe_catalogo -> condicao_selecao
+
+condicao_selecao -> sistema_cria_pedido {label: "Sim"}
+condicao_selecao -> stop_node {label: "Não"}
+
+sistema_cria_pedido -> fork_node
+fork_node -> adicionar_itens
+fork_node -> atualizar_estoque
+
+adicionar_itens -> calcular_subtotal
+calcular_subtotal -> end_fork
+
+atualizar_estoque -> end_fork
+
+end_fork -> calcular_valor_total
+calcular_valor_total -> sistema_confirma_pedido
+sistema_confirma_pedido -> stop_node

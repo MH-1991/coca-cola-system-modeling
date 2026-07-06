@@ -1,0 +1,58 @@
+classDiagram
+    class Produto {
+        +String ID_Produto
+        +String Nome
+        +String Descricao
+        +String Tipo
+        +String Tamanho_Volume
+        +Decimal Preco_Unitario
+        +String Status
+        +void atualizarEstoque(int quantidade)
+        +void exibirDetalhes()
+    }
+
+    class Cliente {
+        +String ID_Cliente
+        +String Nome_Empresa
+        +String CNPJ_CPF
+        +String Endereco
+        +String Telefone
+        +String Email
+        +String Tipo_Cliente
+        +void fazerPedido()
+        +void visualizarHistoricoPedidos()
+    }
+
+    class Pedido {
+        +String ID_Pedido
+        +Date Data_Pedido
+        +String Status_Pedido
+        +Decimal Valor_Total
+        +Date Data_Entrega_Estimada
+        +void adicionarItem(Produto produto, int quantidade)
+        +void calcularValorTotal()
+        +void atualizarStatus(String novoStatus)
+    }
+
+    class Detalhe_Pedido {
+        +String ID_Detalhe_Pedido
+        +int Quantidade
+        +Decimal Preco_Unitario_no_Pedido
+        +Decimal Subtotal
+        +void calcularSubtotal()
+    }
+
+    class Estoque {
+        +String ID_Estoque
+        +int Quantidade_Disponivel
+        +String Localizacao
+        +DateTime Data_Ultima_Atualizacao
+        +void adicionarProduto(Produto produto, int quantidade)
+        +void removerProduto(Produto produto, int quantidade)
+        +int verificarDisponibilidade(Produto produto)
+    }
+
+    Cliente "1" -- "*" Pedido : faz
+    Pedido "1" -- "*" Detalhe_Pedido : contem
+    Produto "1" -- "*" Detalhe_Pedido : esta_em
+    Produto "1" -- "1" Estoque : tem

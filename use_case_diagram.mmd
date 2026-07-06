@@ -1,0 +1,67 @@
+graph TD
+    subgraph Atores
+        Cliente
+        Gerente_de_Vendas[Gerente de Vendas]
+        Gerente_de_Estoque[Gerente de Estoque]
+        Administrador_do_Sistema[Administrador do Sistema]
+    end
+
+    subgraph Casos_de_Uso
+        UC1(Fazer Pedido)
+        UC2(Visualizar Histórico de Pedidos)
+        UC3(Gerenciar Produtos)
+        UC4(Gerenciar Clientes)
+        UC5(Gerenciar Pedidos)
+        UC6(Visualizar Relatórios de Vendas)
+        UC7(Gerenciar Estoque)
+        UC8(Atualizar Quantidade de Produtos)
+        UC9(Verificar Disponibilidade de Produtos)
+        UC10(Gerenciar Usuários)
+        UC11(Configurar Sistema)
+        UC12(Selecionar Produtos)
+        UC13(Informar Quantidade)
+        UC14(Confirmar Pedido)
+        UC15(Atualizar Status do Pedido)
+        UC16(Visualizar Detalhes do Pedido)
+        UC17(Adicionar Produto ao Estoque)
+        UC18(Remover Produto do Estoque)
+        UC19(Adicionar Produto)
+        UC20(Editar Produto)
+        UC21(Remover Produto)
+        UC22(Adicionar Cliente)
+        UC23(Editar Cliente)
+        UC24(Remover Cliente)
+    end
+
+    Cliente --> UC1
+    Cliente --> UC2
+
+    Gerente_de_Vendas --> UC3
+    Gerente_de_Vendas --> UC4
+    Gerente_de_Vendas --> UC5
+    Gerente_de_Vendas --> UC6
+
+    Gerente_de_Estoque --> UC7
+    Gerente_de_Estoque --> UC8
+    Gerente_de_Estoque --> UC9
+
+    Administrador_do_Sistema --> UC10
+    Administrador_do_Sistema --> UC11
+
+    UC1 -- inclui --> UC12
+    UC1 -- inclui --> UC13
+    UC1 -- inclui --> UC14
+
+    UC5 -- inclui --> UC15
+    UC5 -- inclui --> UC16
+
+    UC7 -- inclui --> UC17
+    UC7 -- inclui --> UC18
+
+    UC3 -- inclui --> UC19
+    UC3 -- inclui --> UC20
+    UC3 -- inclui --> UC21
+
+    UC4 -- inclui --> UC22
+    UC4 -- inclui --> UC23
+    UC4 -- inclui --> UC24

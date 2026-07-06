@@ -1,0 +1,52 @@
+direction: right
+
+table Produto {
+  ID_Produto: varchar {pk}
+  Nome: varchar(255) {not null}
+  Descrição: text
+  Tipo: varchar(100)
+  Tamanho_Volume: varchar(50)
+  Preço_Unitário: decimal(10, 2) {not null}
+  Status: varchar(50)
+}
+
+table Cliente {
+  ID_Cliente: varchar {pk}
+  Nome_Empresa: varchar(255) {not null}
+  CNPJ_CPF: varchar(20) {unique, not null}
+  Endereço: text
+  Telefone: varchar(20)
+  Email: varchar(255)
+  Tipo_Cliente: varchar(50)
+}
+
+table Pedido {
+  ID_Pedido: varchar {pk}
+  ID_Cliente: varchar {fk}
+  Data_Pedido: date {not null}
+  Status_Pedido: varchar(50)
+  Valor_Total: decimal(10, 2)
+  Data_Entrega_Estimada: date
+}
+
+table Detalhe_Pedido {
+  ID_Detalhe_Pedido: varchar {pk}
+  ID_Pedido: varchar {fk}
+  ID_Produto: varchar {fk}
+  Quantidade: int {not null}
+  Preço_Unitário_no_Pedido: decimal(10, 2)
+  Subtotal: decimal(10, 2)
+}
+
+table Estoque {
+  ID_Estoque: varchar {pk}
+  ID_Produto: varchar {fk, unique}
+  Quantidade_Disponível: int {not null}
+  Localização: varchar(255)
+  Data_Última_Atualização: datetime
+}
+
+Pedido.ID_Cliente -> Cliente.ID_Cliente
+Detalhe_Pedido.ID_Pedido -> Pedido.ID_Pedido
+Detalhe_Pedido.ID_Produto -> Produto.ID_Produto
+Estoque.ID_Produto -> Produto.ID_Produto
